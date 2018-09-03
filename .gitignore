@@ -71,3 +71,5 @@ typings/
 
 # Serverless directories
 .serverless
+# ignore my token file
+secrets.js
