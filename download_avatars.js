@@ -1,0 +1,3 @@
+function getRepoContributors(repoOwner, repoName, cb) {
+  // ...
+}
