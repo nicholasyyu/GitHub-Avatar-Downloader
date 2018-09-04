@@ -4,12 +4,17 @@ var getToken = require('./secrets');
 
 var object = {};
 var filePath = "avatars/";
+var args = process.argv.slice(2);
 
-getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
+getRepoContributors(args[0], args[1], function(err, result) {
+  console.log("Start HTTP request.")
+  if(err){
+    throw err
+  }
+  console.log("No err...")
   object = JSON.parse(result);
-  console.log("Errors:", object);
   getAvatarURL(object);
+  console.log("End HTTP request.")
 });
 
 function getRepoContributors(repoOwner, repoName, cb) {
@@ -25,15 +30,12 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
-function getAvatarURL(object){
+function getAvatarURL(object) {
   for(var i = 0; i < object.length; i++){
-    //console.log('avatar_url: ' + object[i].avatar_url);
     downloadImageByURL(object[i].avatar_url, filePath + object[i].login);
   }
 }
 
 function downloadImageByURL(url, filePath) {
-  // ...
   request(url).pipe(fs.createWriteStream(filePath));
-
 }
